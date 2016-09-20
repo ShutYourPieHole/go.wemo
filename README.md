@@ -1,8 +1,8 @@
 go.wemo
 =======
 
-[![GoDoc](http://godoc.org/github.com/savaki/go.wemo?status.png)](http://godoc.org/github.com/savaki/go.wemo)
-[![Build Status](https://snap-ci.com/savaki/go.wemo/branch/master/build_image)](https://snap-ci.com/savaki/go.wemo/branch/master)
+[![GoDoc](http://godoc.org/github.com/ShutYourPieHole/go.wemo?status.png)](http://godoc.org/github.com/ShutYourPieHole/go.wemo)
+[![Build Status](https://snap-ci.com/ShutYourPieHole/go.wemo/branch/master/build_image)](https://snap-ci.com/ShutYourPieHole/go.wemo/branch/master)
 
 Simple package to interface with Belkin wemo devices.
 
@@ -13,13 +13,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/savaki/go.wemo"
+	"github.com/ShutYourPieHole/go.wemo"
 	"time"
 )
 
 func main() {
   api, _ := wemo.NewByInterface("en0")
-  devices, _ := api.DiscoverAll(3*time.Second)
+  devices, _ := api.DiscoverAll(3 * time.Second)
   for _, device := range devices {
     fmt.Printf("Found %+v\n", device)
   }
@@ -33,7 +33,7 @@ package main
 
 import (
   "fmt"
-  "github.com/savaki/go.wemo"
+  "github.com/ShutYourPieHole/go.wemo"
 )
 
 func main() {
@@ -42,8 +42,8 @@ func main() {
   device        := &wemo.Device{Host:"10.0.1.32:49153"}
 
   // retrieve device info
-  deviceInfo, _ := device.FetchDeviceInfo()
-  fmt.Printf("Found => %+v\n", deviceInfo)
+  deviceInfo, _ := device.FetchDeviceInfo(context.Background())
+  fmt.Printf("Found => %+v\n", deviceInfo.FriendlyName)
 
   // device controls
   device.On()
@@ -61,14 +61,14 @@ As a convenience method, you can control lights through a more generic interface
 package main
 
 import (
-  "github.com/savaki/go.wemo"
+  "github.com/ShutYourPieHole/go.wemo"
   "time"
 )
 
 func main() {
   api, _ := wemo.NewByInterface("en0")
-  api.On("Left Light", 3*time.Second)
-  api.Off("Left Light", 3*time.Second)
-  api.Toggle("Left Light", 3*time.Second)
+  api.On("Left Light", 3 * time.Second)
+  api.Off("Left Light", 3 * time.Second)
+  api.Toggle("Left Light", 3 * time.Second)
 }
 ```
